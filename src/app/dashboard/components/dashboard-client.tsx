@@ -8,6 +8,7 @@ import type { Order, User, Role, OrderStatus } from "@/lib/types";
 import { orderStatusFlow } from "@/lib/types";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface DashboardClientProps {
   initialOrders: Order[];
@@ -17,6 +18,9 @@ interface DashboardClientProps {
 export function DashboardClient({ initialOrders, users }: DashboardClientProps) {
   const [orders, setOrders] = useState<Order[]>(initialOrders);
   const [currentUser, setCurrentUser] = useState<User>(users[0]); // Default to Admin
+  const [adminSelectedStatus, setAdminSelectedStatus] = useState<OrderStatus>('New Request');
+  
+  const isMobile = useIsMobile();
 
   const handleUpdateOrderStatus = (orderId: string, newStatus: OrderStatus) => {
     setOrders(prevOrders =>
@@ -53,6 +57,60 @@ export function DashboardClient({ initialOrders, users }: DashboardClientProps) 
     return titles[role];
   };
 
+  const renderAdminView = () => {
+    // On first render on client, isMobile can be false even on mobile.
+    // So we'll get a flash of tabs before it switches to select. This is acceptable.
+    if (isMobile) {
+      return (
+        <div className="space-y-4">
+          <div className="grid w-full items-center gap-1.5">
+            <Label htmlFor="status-select">Filter by Status</Label>
+            <Select 
+              value={adminSelectedStatus} 
+              onValueChange={(status) => setAdminSelectedStatus(status as OrderStatus)}
+            >
+              <SelectTrigger id="status-select">
+                <SelectValue placeholder="Select a status" />
+              </SelectTrigger>
+              <SelectContent>
+                {orderStatusFlow.map(status => (
+                  <SelectItem key={status} value={status}>
+                    {status}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <OrderList
+            orders={getVisibleOrdersForRole(currentUser.role, adminSelectedStatus)}
+            currentUser={currentUser}
+            onUpdateStatus={handleUpdateOrderStatus}
+          />
+        </div>
+      );
+    }
+
+    return (
+      <Tabs value={adminSelectedStatus} onValueChange={(status) => setAdminSelectedStatus(status as OrderStatus)} className="space-y-4">
+        <TabsList className="overflow-x-auto whitespace-nowrap h-auto justify-start">
+          {orderStatusFlow.map(status => (
+            <TabsTrigger key={status} value={status}>{status}</TabsTrigger>
+          ))}
+        </TabsList>
+        {/* We still render all TabsContent, and Tabs component handles showing the active one. */}
+        {orderStatusFlow.map(status => (
+          <TabsContent key={status} value={status} className="space-y-4">
+            <OrderList
+              orders={getVisibleOrdersForRole(currentUser.role, status)}
+              currentUser={currentUser}
+              onUpdateStatus={handleUpdateOrderStatus}
+            />
+          </TabsContent>
+        ))}
+      </Tabs>
+    );
+  };
+
   return (
     <>
       <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
@@ -82,24 +140,7 @@ export function DashboardClient({ initialOrders, users }: DashboardClientProps) 
         </div>
       </div>
 
-      {currentUser.role === 'Admin' ? (
-        <Tabs defaultValue="New Request" className="space-y-4">
-          <TabsList className="overflow-x-auto whitespace-nowrap h-auto justify-start">
-            {orderStatusFlow.map(status => (
-              <TabsTrigger key={status} value={status}>{status}</TabsTrigger>
-            ))}
-          </TabsList>
-          {orderStatusFlow.map(status => (
-            <TabsContent key={status} value={status} className="space-y-4">
-              <OrderList
-                orders={getVisibleOrdersForRole(currentUser.role, status)}
-                currentUser={currentUser}
-                onUpdateStatus={handleUpdateOrderStatus}
-              />
-            </TabsContent>
-          ))}
-        </Tabs>
-      ) : (
+      {currentUser.role === 'Admin' ? renderAdminView() : (
         <OrderList
           orders={getVisibleOrdersForRole(currentUser.role)}
           currentUser={currentUser}
