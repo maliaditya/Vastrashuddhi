@@ -8,6 +8,9 @@ import {
   UserCheck,
   Home,
   Bot,
+  LayoutDashboard,
+  Users,
+  Settings,
   type Icon as LucideIcon,
 } from 'lucide-react';
 
@@ -23,4 +26,7 @@ export const Icons = {
   'In Ironing': Sparkles,
   'Ready for Delivery': PackageCheck,
   'Delivered': Home,
+  dashboard: LayoutDashboard,
+  users: Users,
+  settings: Settings,
 };

@@ -101,7 +101,7 @@ export function StatusUpdateDialog({
           <Button variant="outline" onClick={() => onOpenChange(false)}>
             Cancel
           </Button>
-          <Button onClick={handleConfirm} disabled={isLoading} style={{backgroundColor: 'hsl(var(--accent))', color: 'hsl(var(--accent-foreground))'}}>
+          <Button onClick={handleConfirm} disabled={isLoading}>
             <Send className="mr-2 h-4 w-4" />
             Confirm & Send Message
           </Button>

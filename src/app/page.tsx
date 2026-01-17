@@ -37,7 +37,7 @@ export default function TrackOrderPage() {
       </div>
       <div className="flex items-center gap-3 mb-8">
         <Icons.logo className="h-12 w-12 text-primary" />
-        <h1 className="text-5xl font-headline font-bold" style={{color: 'hsl(var(--primary-foreground))'}}>LaundryBot</h1>
+        <h1 className="text-5xl font-headline font-bold">LaundryBot</h1>
       </div>
       <Card className="w-full max-w-md shadow-2xl bg-card">
         <CardHeader>
