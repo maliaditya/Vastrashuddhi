@@ -13,7 +13,7 @@ const title = 'VastraShuddhi';
 const description = 'A WhatsApp-first laundry management system.';
 // NOTE: You should replace this with your actual production URL
 const url = 'https://vastrashuddhi.vercel.app'; 
-const ogImage = 'https://images.unsplash.com/photo-1655041448985-f6666cba2d6c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxsYXVuZHJ5JTIwcm9vbXxlbnwwfHx8fDE3Njg2MDkxNDR8MA&ixlib=rb-4.1.0&q=80&w=1080';
+const ogImage = 'https://picsum.photos/seed/laundry/1200/630';
 
 
 export const metadata: Metadata = {
@@ -30,8 +30,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: ogImage,
-        width: 1080,
-        height: 720,
+        width: 1200,
+        height: 630,
         alt: 'A modern and clean laundry room.',
       },
     ],
