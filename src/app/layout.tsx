@@ -9,8 +9,9 @@ const fontSans = FontSans({
   variable: "--font-sans",
 })
 
-const title = 'VastraShuddhi';
-const description = 'A WhatsApp-first laundry management system.';
+const title = 'Vastrashuddhi – Professional Laundry & Dry Cleaning';
+const description = 'Professional laundry and dry cleaning service with free pickup and delivery. Book easily on WhatsApp. Clean, hygienic, and reliable service.';
+const ogDescription = 'Professional laundry and dry cleaning service with free pickup and delivery. Book easily on WhatsApp.';
 // NOTE: You should replace this with your actual production URL
 const url = 'https://vastrashuddhi.vercel.app'; 
 const ogImage = 'https://picsum.photos/seed/laundry/1200/630';
@@ -24,9 +25,9 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: title,
-    description: description,
+    description: ogDescription,
     url: url,
-    siteName: title,
+    siteName: 'Vastrashuddhi',
     images: [
       {
         url: ogImage,
@@ -41,7 +42,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: title,
-    description: description,
+    description: ogDescription,
     images: [ogImage],
   },
   metadataBase: new URL(url),
