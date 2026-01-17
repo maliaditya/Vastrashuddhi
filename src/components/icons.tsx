@@ -11,6 +11,9 @@ import {
   LayoutDashboard,
   Users,
   Settings,
+  Package,
+  Repeat,
+  Smile,
   type Icon as LucideIcon,
 } from 'lucide-react';
 
@@ -29,4 +32,10 @@ export const Icons = {
   dashboard: LayoutDashboard,
   users: Users,
   settings: Settings,
+  howItWorks: {
+    step1: Package,
+    step2: Truck,
+    step3: Repeat,
+    step4: Smile,
+  }
 };

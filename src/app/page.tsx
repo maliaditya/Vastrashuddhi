@@ -10,8 +10,10 @@ import { orders as allOrders } from '@/lib/data';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
+import Image from 'next/image';
+import { placeholderImages } from '@/lib/placeholder-images';
 
-export default function TrackOrderPage() {
+export default function LandingPage() {
   const [orderId, setOrderId] = useState('');
   const [foundOrder, setFoundOrder] = useState<Order | null>(null);
   const [searched, setSearched] = useState(false);
@@ -27,75 +29,233 @@ export default function TrackOrderPage() {
     const Icon = Icons[status];
     return <Icon className="h-5 w-5" />;
   };
+  
+  const services = [
+    {
+      title: "Wash & Fold",
+      description: "Crisp, clean, and folded laundry, ready to be put away. We handle your everyday items with care.",
+      icon: "In Laundry",
+      image: placeholderImages.find(p => p.id === "service-wash-fold")
+    },
+    {
+      title: "Ironing",
+      description: "Perfectly pressed shirts, trousers, and linens for a sharp, professional look.",
+      icon: "In Ironing",
+      image: placeholderImages.find(p => p.id === "service-ironing")
+    },
+    {
+      title: "Dry Cleaning",
+      description: "Specialized care for your delicate and valuable garments, ensuring they last longer.",
+      icon: "Ready for Delivery",
+      image: placeholderImages.find(p => p.id === "service-dry-cleaning")
+    }
+  ]
+
+  const howItWorksSteps = [
+    {
+      title: "Bag Up Your Laundry",
+      description: "Place your clothes in any bag. Don't worry about sorting, we'll do it for you.",
+      icon: Icons.howItWorks.step1,
+    },
+    {
+      title: "We Pick It Up",
+      description: "Schedule a pickup and our driver will collect your laundry right from your doorstep.",
+      icon: Icons.howItWorks.step2,
+    },
+    {
+      title: "We Clean & Care",
+      description: "Our experts wash, fold, iron, or dry clean your items with the utmost attention to quality.",
+      icon: Icons.howItWorks.step3,
+    },
+    {
+      title: "We Deliver",
+      description: "Get your fresh, clean laundry delivered back to you, ready for your wardrobe.",
+      icon: Icons.howItWorks.step4,
+    }
+  ]
+  
+  const testimonials = [
+      {
+          name: "Sarah J.",
+          review: "LaundryBot is a lifesaver! The pickup and delivery are always on time, and my clothes come back perfectly clean and folded. I have so much more free time now."
+      },
+      {
+          name: "Mark T.",
+          review: "The quality of the ironing service is top-notch. My shirts have never looked better. The app is also super easy to use for tracking my orders."
+      },
+      {
+          name: "Emily R.",
+          review: "As a busy mom, I can't imagine my week without LaundryBot. It's reliable, convenient, and the customer service is excellent. Highly recommended!"
+      }
+  ]
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-4 sm:p-8 bg-gradient-to-br from-background to-primary/20">
-      <div className="absolute top-4 right-4">
-        <Button asChild variant="outline">
-          <Link href="/dashboard">Staff Panel</Link>
-        </Button>
-      </div>
-      <div className="flex items-center gap-3 mb-8">
-        <Icons.logo className="h-12 w-12 text-primary" />
-        <h1 className="text-5xl font-headline font-bold">LaundryBot</h1>
-      </div>
-      <Card className="w-full max-w-md shadow-2xl bg-card">
-        <CardHeader>
-          <CardTitle className="text-2xl">Track Your Order</CardTitle>
-          <CardDescription>Enter your Order ID or Phone Number to see the status.</CardDescription>
-        </CardHeader>
-        <form onSubmit={handleTrackOrder}>
-          <CardContent>
-            <Input
-              placeholder="e.g., LB-101 or +15551234567"
-              value={orderId}
-              onChange={(e) => setOrderId(e.target.value)}
-              className="text-base"
-            />
-          </CardContent>
-          <CardFooter>
-            <Button type="submit" className="w-full text-base py-6" variant="default">
-              Track Order
-            </Button>
-          </CardFooter>
-        </form>
-      </Card>
+    <div className="flex flex-col min-h-screen bg-background">
+      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container flex h-16 items-center justify-between">
+          <Link href="/" className="flex items-center gap-2">
+            <Icons.logo className="h-8 w-8 text-primary" />
+            <span className="font-bold text-lg">LaundryBot</span>
+          </Link>
+          <nav className="hidden md:flex gap-6">
+            <Link href="#services" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">Services</Link>
+            <Link href="#how-it-works" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">How It Works</Link>
+            <Link href="#testimonials" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">Testimonials</Link>
+            <Link href="#track" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">Track Order</Link>
+          </nav>
+          <Button asChild>
+            <Link href="/dashboard">Staff Panel</Link>
+          </Button>
+        </div>
+      </header>
 
-      {searched && (
-        <Card className="w-full max-w-md mt-6 shadow-2xl bg-card animate-in fade-in-50">
-          <CardHeader>
-            <CardTitle>Order Status</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {foundOrder ? (
-              <div className="space-y-4">
-                <div className="flex justify-between items-center">
-                  <span className="font-medium text-muted-foreground">Order ID</span>
-                  <span className="font-bold">{foundOrder.id}</span>
+      <main className="flex-1">
+        {/* Hero Section */}
+        <section className="relative w-full h-[70vh] flex items-center justify-center text-center bg-cover bg-center" style={{backgroundImage: `url('${placeholderImages.find(p => p.id === 'hero')?.imageUrl}')`}}>
+            <div className="absolute inset-0 bg-black/50" />
+            <div className="relative z-10 space-y-4 px-4">
+                <h1 className="text-4xl md:text-6xl font-bold text-white">The Last Laundry Day You'll Ever Have</h1>
+                <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto">Get your laundry and dry cleaning done with the tap of a button. We pick up, clean, and deliver, so you can get back to doing what you love.</p>
+                <Button size="lg" asChild>
+                    <Link href="#track">Get Started</Link>
+                </Button>
+            </div>
+        </section>
+
+        {/* Services Section */}
+        <section id="services" className="py-16 lg:py-24">
+          <div className="container mx-auto text-center">
+            <h2 className="text-3xl font-bold tracking-tight lg:text-4xl mb-2">Our Services</h2>
+            <p className="text-muted-foreground mb-12 max-w-2xl mx-auto">From everyday laundry to special care items, we've got you covered.</p>
+            <div className="grid md:grid-cols-3 gap-8">
+              {services.map(service => {
+                  const Icon = Icons[service.icon as keyof typeof Icons];
+                  return (
+                    <Card key={service.title} className="text-left overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                        {service.image && <Image src={service.image.imageUrl} alt={service.title} width={600} height={400} className="rounded-t-lg object-cover h-48 w-full" data-ai-hint={service.image.imageHint} />}
+                        <CardHeader>
+                            <CardTitle className="flex items-center gap-2">
+                                <Icon className="h-6 w-6 text-primary" />
+                                {service.title}
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <p className="text-muted-foreground">{service.description}</p>
+                        </CardContent>
+                    </Card>
+                  )
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* How It Works Section */}
+        <section id="how-it-works" className="py-16 lg:py-24 bg-muted/50">
+          <div className="container mx-auto text-center">
+            <h2 className="text-3xl font-bold tracking-tight lg:text-4xl mb-2">How It Works</h2>
+            <p className="text-muted-foreground mb-12">Four simple steps to laundry freedom.</p>
+            <div className="grid md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+              {howItWorksSteps.map((step, index) => {
+                  const Icon = step.icon;
+                  return (
+                     <div key={index} className="flex flex-col items-center text-center">
+                        <div className="flex items-center justify-center h-16 w-16 rounded-full bg-primary text-primary-foreground mb-4 ring-8 ring-background">
+                            <Icon className="h-8 w-8" />
+                        </div>
+                        <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
+                        <p className="text-muted-foreground">{step.description}</p>
+                    </div>
+                  )
+              })}
+            </div>
+          </div>
+        </section>
+        
+        {/* Testimonials Section */}
+        <section id="testimonials" className="py-16 lg:py-24">
+            <div className="container mx-auto text-center">
+                <h2 className="text-3xl font-bold tracking-tight lg:text-4xl mb-2">What Our Customers Say</h2>
+                <p className="text-muted-foreground mb-12">We're proud to be trusted by our amazing customers.</p>
+                <div className="grid md:grid-cols-3 gap-8">
+                    {testimonials.map(testimonial => (
+                        <Card key={testimonial.name} className="bg-card">
+                            <CardContent className="pt-6">
+                                <p className="italic text-muted-foreground">"{testimonial.review}"</p>
+                                <p className="font-semibold mt-4 text-foreground">— {testimonial.name}</p>
+                            </CardContent>
+                        </Card>
+                    ))}
                 </div>
-                <Separator />
-                <div className="flex justify-between items-center">
-                  <span className="font-medium text-muted-foreground">Customer</span>
-                  <span className="font-bold">{foundOrder.customerName}</span>
-                </div>
-                <Separator />
-                <div className="flex justify-between items-center">
-                  <span className="font-medium text-muted-foreground">Status</span>
-                  <Badge className="text-sm px-3 py-1 flex items-center gap-2" style={{ 
-                    backgroundColor: `hsl(var(--primary))`,
-                    color: `hsl(var(--primary-foreground))`
-                  }}>
-                    {getStatusIcon(foundOrder.status)}
-                    <span>{foundOrder.status}</span>
-                  </Badge>
-                </div>
-              </div>
-            ) : (
-              <p className="text-center text-muted-foreground">No order found with that ID or phone number.</p>
+            </div>
+        </section>
+
+
+        {/* Track Order Section */}
+        <section id="track" className="py-16 lg:py-24 bg-muted/50">
+          <div className="flex flex-col items-center justify-center gap-6">
+            <Card className="w-full max-w-md shadow-lg">
+              <CardHeader className="text-center">
+                <CardTitle className="text-2xl">Track Your Order</CardTitle>
+                <CardDescription>Enter your Order ID or Phone Number to see the status.</CardDescription>
+              </CardHeader>
+              <form onSubmit={handleTrackOrder}>
+                <CardContent>
+                  <Input
+                    placeholder="e.g., LB-101 or +15551234567"
+                    value={orderId}
+                    onChange={(e) => setOrderId(e.target.value)}
+                    className="text-base"
+                  />
+                </CardContent>
+                <CardFooter>
+                  <Button type="submit" className="w-full text-base py-6" variant="default">
+                    Track Order
+                  </Button>
+                </CardFooter>
+              </form>
+            </Card>
+
+            {searched && (
+              <Card className="w-full max-w-md shadow-lg animate-in fade-in-50">
+                <CardHeader>
+                  <CardTitle>Order Status</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {foundOrder ? (
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-center">
+                        <span className="font-medium text-muted-foreground">Order ID</span>
+                        <span className="font-bold">{foundOrder.id}</span>
+                      </div>
+                      <Separator />
+                      <div className="flex justify-between items-center">
+                        <span className="font-medium text-muted-foreground">Customer</span>
+                        <span className="font-bold">{foundOrder.customerName}</span>
+                      </div>
+                      <Separator />
+                      <div className="flex justify-between items-center">
+                        <span className="font-medium text-muted-foreground">Status</span>
+                        <Badge className="text-sm px-3 py-1 flex items-center gap-2" variant="default">
+                          {getStatusIcon(foundOrder.status)}
+                          <span>{foundOrder.status}</span>
+                        </Badge>
+                      </div>
+                    </div>
+                  ) : (
+                    <p className="text-center text-muted-foreground">No order found with that ID or phone number.</p>
+                  )}
+                </CardContent>
+              </Card>
             )}
-          </CardContent>
-        </Card>
-      )}
-    </main>
+          </div>
+        </section>
+      </main>
+      
+      <footer className="py-6 border-t">
+        <div className="container text-center text-muted-foreground text-sm">
+            <p>&copy; {new Date().getFullYear()} LaundryBot. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
   );
 }
