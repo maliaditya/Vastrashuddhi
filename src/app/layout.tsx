@@ -11,9 +11,9 @@ const fontSans = FontSans({
 
 const title = 'Vastrashuddhi – Professional Laundry & Dry Cleaning';
 const description = 'Professional laundry and dry cleaning service with free pickup and delivery. Book easily on WhatsApp. Clean, hygienic, and reliable service.';
-const ogDescription = 'Professional laundry and dry cleaning service with free pickup and delivery. Book easily on WhatsApp.';
-const url = 'https://vastrashuddhi.vercel.app'; 
-const ogImage = 'https://images.unsplash.com/photo-1655041448985-f6666cba2d6c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxsYXVuZHJ5JTIwcm9vbXxlbnwwfHx8fDE3Njg2MDkxNDR8MA&ixlib=rb-4.1.0&q=80&w=1200';
+const ogDescription = 'Professional laundry and dry cleaning with free pickup and delivery. Book easily on WhatsApp.';
+const url = 'https://vastrashuddhi.vercel.app';
+const ogImage = 'https://placehold.co/1200x630/25D366/FFFFFF/png?text=VastraShuddhi';
 
 
 export const metadata: Metadata = {
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
         url: ogImage,
         width: 1200,
         height: 630,
-        alt: 'A modern and clean laundry room.',
+        alt: 'Vastrashuddhi Logo',
       },
     ],
     locale: 'en_US',
