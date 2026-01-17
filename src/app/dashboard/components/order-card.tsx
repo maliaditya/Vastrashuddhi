@@ -52,7 +52,7 @@ export function OrderCard({ order, currentUser, onUpdateStatus }: OrderCardProps
 
   return (
     <>
-      <Card className="flex flex-col shadow-lg hover:shadow-xl transition-shadow duration-300 bg-card">
+      <Card className="flex flex-col w-full max-w-sm shadow-lg hover:shadow-xl transition-shadow duration-300 bg-card">
         <CardHeader>
           <div className="flex justify-between items-start">
             <div>
