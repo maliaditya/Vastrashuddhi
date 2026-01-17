@@ -77,7 +77,7 @@ export default function LandingPage() {
   const testimonials = [
       {
           name: "Sarah J.",
-          review: "LaundryBot is a lifesaver! The pickup and delivery are always on time, and my clothes come back perfectly clean and folded. I have so much more free time now."
+          review: "VastraShuddhi is a lifesaver! The pickup and delivery are always on time, and my clothes come back perfectly clean and folded. I have so much more free time now."
       },
       {
           name: "Mark T.",
@@ -85,7 +85,7 @@ export default function LandingPage() {
       },
       {
           name: "Emily R.",
-          review: "As a busy mom, I can't imagine my week without LaundryBot. It's reliable, convenient, and the customer service is excellent. Highly recommended!"
+          review: "As a busy mom, I can't imagine my week without VastraShuddhi. It's reliable, convenient, and the customer service is excellent. Highly recommended!"
       }
   ]
 
@@ -95,7 +95,7 @@ export default function LandingPage() {
         <div className="container flex h-16 items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <Icons.logo className="h-8 w-8 text-primary" />
-            <span className="font-bold text-lg">LaundryBot</span>
+            <span className="font-bold text-lg">VastraShuddhi</span>
           </Link>
           <nav className="hidden md:flex gap-6">
             <Link href="#services" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">Services</Link>
@@ -253,7 +253,7 @@ export default function LandingPage() {
       
       <footer className="py-6 border-t">
         <div className="container text-center text-muted-foreground text-sm">
-            <p>&copy; {new Date().getFullYear()} LaundryBot. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} VastraShuddhi. All rights reserved.</p>
         </div>
       </footer>
     </div>

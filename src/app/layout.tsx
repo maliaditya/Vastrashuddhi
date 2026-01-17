@@ -10,7 +10,7 @@ const fontSans = FontSans({
 })
 
 export const metadata: Metadata = {
-  title: 'LaundryBot',
+  title: 'VastraShuddhi',
   description: 'A WhatsApp-first laundry management system.',
 };
 

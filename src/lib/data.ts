@@ -1,11 +1,11 @@
 import type { Order, User } from './types';
 
 export const users: User[] = [
-  { id: 'user-1', name: 'Alice Admin', email: 'alice@laundrybot.com', avatarUrl: 'https://picsum.photos/seed/1/40/40', role: 'Admin' },
-  { id: 'user-2', name: 'Bob Pickup', email: 'bob@laundrybot.com', avatarUrl: 'https://picsum.photos/seed/2/40/40', role: 'Pickup Staff' },
-  { id: 'user-3', name: 'Charlie Laundry', email: 'charlie@laundrybot.com', avatarUrl: 'https://picsum.photos/seed/3/40/40', role: 'Laundry Worker' },
-  { id: 'user-4', name: 'Diana Ironing', email: 'diana@laundrybot.com', avatarUrl: 'https://picsum.photos/seed/4/40/40', role: 'Ironing Worker' },
-  { id: 'user-5', name: 'Evan Delivery', email: 'evan@laundrybot.com', avatarUrl: 'https://picsum.photos/seed/5/40/40', role: 'Delivery Staff' },
+  { id: 'user-1', name: 'Alice Admin', email: 'alice@vastrashuddhi.com', avatarUrl: 'https://picsum.photos/seed/1/40/40', role: 'Admin' },
+  { id: 'user-2', name: 'Bob Pickup', email: 'bob@vastrashuddhi.com', avatarUrl: 'https://picsum.photos/seed/2/40/40', role: 'Pickup Staff' },
+  { id: 'user-3', name: 'Charlie Laundry', email: 'charlie@vastrashuddhi.com', avatarUrl: 'https://picsum.photos/seed/3/40/40', role: 'Laundry Worker' },
+  { id: 'user-4', name: 'Diana Ironing', email: 'diana@vastrashuddhi.com', avatarUrl: 'https://picsum.photos/seed/4/40/40', role: 'Ironing Worker' },
+  { id: 'user-5', name: 'Evan Delivery', email: 'evan@vastrashuddhi.com', avatarUrl: 'https://picsum.photos/seed/5/40/40', role: 'Delivery Staff' },
 ];
 
 export const orders: Order[] = [

@@ -26,7 +26,7 @@ export default function DashboardLayout({
              <Link href="/" className="flex items-center gap-2" >
               <Icons.logo className="h-8 w-8" />
               <span className="font-bold text-lg">
-                LaundryBot
+                VastraShuddhi
               </span>
             </Link>
           </div>
