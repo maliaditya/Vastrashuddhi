@@ -23,15 +23,18 @@ import {
 } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { useToast } from "@/hooks/use-toast";
 
 export default function LandingPage() {
   const [orderId, setOrderId] = useState('');
   const [foundOrder, setFoundOrder] = useState<Order | null>(null);
   const [searched, setSearched] = useState(false);
   const [isOrderDialogOpen, setIsOrderDialogOpen] = useState(false);
+  const [isPickupDialogOpen, setIsPickupDialogOpen] = useState(false);
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
   const [customerAddress, setCustomerAddress] = useState('');
+  const { toast } = useToast();
 
   const handleTrackOrder = (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,6 +42,12 @@ export default function LandingPage() {
     const order = allOrders.find(o => o.id.toLowerCase() === orderId.toLowerCase() || o.customerPhone === orderId);
     setFoundOrder(order || null);
   };
+  
+  const clearCustomerForm = () => {
+    setCustomerName('');
+    setCustomerPhone('');
+    setCustomerAddress('');
+  }
 
   const handleNewOrderSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -65,9 +74,25 @@ Our team will contact you shortly for pickup details.
     window.open(whatsappUrl, '_blank');
 
     setIsOrderDialogOpen(false);
-    setCustomerName('');
-    setCustomerPhone('');
-    setCustomerAddress('');
+    clearCustomerForm();
+  };
+
+  const handleSchedulePickupSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!customerName || !customerPhone || !customerAddress) {
+      alert("Please fill out all fields.");
+      return;
+    }
+
+    // In a real app, you would submit this data to a backend API.
+    // For this demo, we'll just show a success message.
+    toast({
+      title: "Pickup Scheduled!",
+      description: "Our team will connect with you shortly.",
+    });
+
+    setIsPickupDialogOpen(false);
+    clearCustomerForm();
   };
 
 
@@ -162,64 +187,123 @@ Our team will contact you shortly for pickup details.
             <div className="relative z-10 space-y-4 px-4">
                 <h1 className="text-4xl md:text-6xl font-bold text-white">The Last Laundry Day You'll Ever Have</h1>
                 <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto">Get your laundry and dry cleaning done with the tap of a button. We pick up, clean, and deliver, so you can get back to doing what you love.</p>
-                <Dialog open={isOrderDialogOpen} onOpenChange={setIsOrderDialogOpen}>
-                  <DialogTrigger asChild>
-                      <Button size="lg" className="bg-[#25D366] text-white hover:bg-[#25D366]/90">
-                        <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="mr-2 h-5 w-5 fill-current"><title>WhatsApp</title><path d="M12.04 2.02c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.02 22l5.25-1.38c1.45.79 3.08 1.21 4.77 1.21 5.46 0 9.91-4.45 9.91-9.91s-4.45-9.91-9.91-9.91zm0 18.02c-1.6 0-3.15-.4-4.52-1.15l-.32-.19-3.36.88.89-3.28-.21-.33c-.8-1.29-1.22-2.79-1.22-4.34 0-4.52 3.69-8.21 8.21-8.21 4.52 0 8.21 3.69 8.21 8.21s-3.69 8.21-8.21 8.21zm4.52-6.15c-.25-.12-1.47-.72-1.7-.81-.22-.09-.38-.12-.54.12-.16.25-.64.81-.79.97-.15.16-.3.18-.54.06s-1.02-.38-1.94-1.2c-.72-.63-1.19-1.4-1.34-1.64s-.03-.21.09-.33c.11-.11.25-.29.38-.43.12-.15.16-.25.25-.41.09-.17.04-.31-.02-.43s-.54-1.29-.74-1.77c-.2-.48-.4-.41-.54-.42-.14-.01-.3 0-.46 0s-.42.06-.64.31c-.22.25-.86.84-.86 2.05 0 1.21.88 2.37 1 2.53s1.75 2.67 4.23 3.74c.59.25 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.07-.12-.25-.19-.5-.31z"/></svg>
-                        Chat on WhatsApp
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-6">
+                  <Dialog open={isOrderDialogOpen} onOpenChange={(open) => { setIsOrderDialogOpen(open); if (!open) clearCustomerForm();}}>
+                    <DialogTrigger asChild>
+                        <Button size="lg" className="bg-[#25D366] text-white hover:bg-[#25D366]/90">
+                          <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="mr-2 h-5 w-5 fill-current"><title>WhatsApp</title><path d="M12.04 2.02c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.02 22l5.25-1.38c1.45.79 3.08 1.21 4.77 1.21 5.46 0 9.91-4.45 9.91-9.91s-4.45-9.91-9.91-9.91zm0 18.02c-1.6 0-3.15-.4-4.52-1.15l-.32-.19-3.36.88.89-3.28-.21-.33c-.8-1.29-1.22-2.79-1.22-4.34 0-4.52 3.69-8.21 8.21-8.21 4.52 0 8.21 3.69 8.21 8.21s-3.69 8.21-8.21 8.21zm4.52-6.15c-.25-.12-1.47-.72-1.7-.81-.22-.09-.38-.12-.54.12-.16.25-.64.81-.79.97-.15.16-.3.18-.54.06s-1.02-.38-1.94-1.2c-.72-.63-1.19-1.4-1.34-1.64s-.03-.21.09-.33c.11-.11.25-.29.38-.43.12-.15.16-.25.25-.41.09-.17.04-.31-.02-.43s-.54-1.29-.74-1.77c-.2-.48-.4-.41-.54-.42-.14-.01-.3 0-.46 0s-.42.06-.64.31c-.22.25-.86.84-.86 2.05 0 1.21.88 2.37 1 2.53s1.75 2.67 4.23 3.74c.59.25 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.07-.12-.25-.19-.5-.31z"/></svg>
+                          Chat on WhatsApp
+                        </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[425px]">
+                        <DialogHeader>
+                            <DialogTitle>New Laundry Request</DialogTitle>
+                            <DialogDescription>
+                                Enter your details to start a new order on WhatsApp.
+                            </DialogDescription>
+                        </DialogHeader>
+                        <form onSubmit={handleNewOrderSubmit}>
+                            <div className="grid gap-4 py-4">
+                                <div className="grid w-full items-center gap-1.5">
+                                    <Label htmlFor="name">Name</Label>
+                                    <Input
+                                        type="text"
+                                        id="name"
+                                        placeholder="Your full name"
+                                        value={customerName}
+                                        onChange={(e) => setCustomerName(e.target.value)}
+                                        required
+                                    />
+                                </div>
+                                <div className="grid w-full items-center gap-1.5">
+                                    <Label htmlFor="phone">Phone Number</Label>
+                                    <Input
+                                        type="tel"
+                                        id="phone"
+                                        placeholder="Your phone number"
+                                        value={customerPhone}
+                                        onChange={(e) => setCustomerPhone(e.target.value)}
+                                        required
+                                    />
+                                </div>
+                                <div className="grid w-full items-center gap-1.5">
+                                    <Label htmlFor="address">Pickup Address</Label>
+                                    <Textarea
+                                        id="address"
+                                        placeholder="Your full pickup address"
+                                        value={customerAddress}
+                                        onChange={(e) => setCustomerAddress(e.target.value)}
+                                        required
+                                    />
+                                </div>
+                            </div>
+                            <DialogFooter>
+                                <Button type="submit" className="w-full bg-[#25D366] text-white hover:bg-[#25D366]/90">
+                                    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="mr-2 h-5 w-5 fill-current"><title>WhatsApp</title><path d="M12.04 2.02c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.02 22l5.25-1.38c1.45.79 3.08 1.21 4.77 1.21 5.46 0 9.91-4.45 9.91-9.91s-4.45-9.91-9.91-9.91zm0 18.02c-1.6 0-3.15-.4-4.52-1.15l-.32-.19-3.36.88.89-3.28-.21-.33c-.8-1.29-1.22-2.79-1.22-4.34 0-4.52 3.69-8.21 8.21-8.21 4.52 0 8.21 3.69 8.21 8.21s-3.69 8.21-8.21 8.21zm4.52-6.15c-.25-.12-1.47-.72-1.7-.81-.22-.09-.38-.12-.54.12-.16.25-.64.81-.79.97-.15.16-.3.18-.54.06s-1.02-.38-1.94-1.2c-.72-.63-1.19-1.4-1.34-1.64s-.03-.21.09-.33c.11-.11.25-.29.38-.43.12-.15.16-.25.25-.41.09-.17.04-.31-.02-.43s-.54-1.29-.74-1.77c-.2-.48-.4-.41-.54-.42-.14-.01-.3 0-.46 0s-.42.06-.64.31c-.22.25-.86.84-.86 2.05 0 1.21.88 2.37 1 2.53s1.75 2.67 4.23 3.74c.59.25 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.07-.12-.25-.19-.5-.31z"/></svg>
+                                    Send Request via WhatsApp
+                                </Button>
+                            </DialogFooter>
+                        </form>
+                    </DialogContent>
+                  </Dialog>
+
+                  <Dialog open={isPickupDialogOpen} onOpenChange={(open) => { setIsPickupDialogOpen(open); if (!open) clearCustomerForm();}}>
+                    <DialogTrigger asChild>
+                      <Button size="lg" variant="secondary">
+                        Schedule a Pickup
                       </Button>
-                  </DialogTrigger>
-                  <DialogContent className="sm:max-w-[425px]">
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[425px]">
                       <DialogHeader>
-                          <DialogTitle>New Laundry Request</DialogTitle>
-                          <DialogDescription>
-                              Enter your details to start a new order on WhatsApp.
-                          </DialogDescription>
+                        <DialogTitle>Schedule a Pickup</DialogTitle>
+                        <DialogDescription>
+                          Enter your details and we'll arrange a pickup for you.
+                        </DialogDescription>
                       </DialogHeader>
-                      <form onSubmit={handleNewOrderSubmit}>
-                          <div className="grid gap-4 py-4">
-                              <div className="grid w-full items-center gap-1.5">
-                                  <Label htmlFor="name">Name</Label>
-                                  <Input
-                                      type="text"
-                                      id="name"
-                                      placeholder="Your full name"
-                                      value={customerName}
-                                      onChange={(e) => setCustomerName(e.target.value)}
-                                      required
-                                  />
-                              </div>
-                              <div className="grid w-full items-center gap-1.5">
-                                  <Label htmlFor="phone">Phone Number</Label>
-                                  <Input
-                                      type="tel"
-                                      id="phone"
-                                      placeholder="Your phone number"
-                                      value={customerPhone}
-                                      onChange={(e) => setCustomerPhone(e.target.value)}
-                                      required
-                                  />
-                              </div>
-                              <div className="grid w-full items-center gap-1.5">
-                                  <Label htmlFor="address">Pickup Address</Label>
-                                  <Textarea
-                                      id="address"
-                                      placeholder="Your full pickup address"
-                                      value={customerAddress}
-                                      onChange={(e) => setCustomerAddress(e.target.value)}
-                                      required
-                                  />
-                              </div>
-                          </div>
-                          <DialogFooter>
-                              <Button type="submit" className="w-full bg-[#25D366] text-white hover:bg-[#25D366]/90">
-                                  <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="mr-2 h-5 w-5 fill-current"><title>WhatsApp</title><path d="M12.04 2.02c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.02 22l5.25-1.38c1.45.79 3.08 1.21 4.77 1.21 5.46 0 9.91-4.45 9.91-9.91s-4.45-9.91-9.91-9.91zm0 18.02c-1.6 0-3.15-.4-4.52-1.15l-.32-.19-3.36.88.89-3.28-.21-.33c-.8-1.29-1.22-2.79-1.22-4.34 0-4.52 3.69-8.21 8.21-8.21 4.52 0 8.21 3.69 8.21 8.21s-3.69 8.21-8.21 8.21zm4.52-6.15c-.25-.12-1.47-.72-1.7-.81-.22-.09-.38-.12-.54.12-.16.25-.64.81-.79.97-.15.16-.3.18-.54.06s-1.02-.38-1.94-1.2c-.72-.63-1.19-1.4-1.34-1.64s-.03-.21.09-.33c.11-.11.25-.29.38-.43.12-.15.16-.25.25-.41.09-.17.04-.31-.02-.43s-.54-1.29-.74-1.77c-.2-.48-.4-.41-.54-.42-.14-.01-.3 0-.46 0s-.42.06-.64.31c-.22.25-.86.84-.86 2.05 0 1.21.88 2.37 1 2.53s1.75 2.67 4.23 3.74c.59.25 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.07-.12-.25-.19-.5-.31z"/></svg>
-                                  Send Request via WhatsApp
-                              </Button>
-                          </DialogFooter>
+                      <form onSubmit={handleSchedulePickupSubmit}>
+                        <div className="grid gap-4 py-4">
+                            <div className="grid w-full items-center gap-1.5">
+                                <Label htmlFor="pickup-name">Name</Label>
+                                <Input
+                                    type="text"
+                                    id="pickup-name"
+                                    placeholder="Your full name"
+                                    value={customerName}
+                                    onChange={(e) => setCustomerName(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="grid w-full items-center gap-1.5">
+                                <Label htmlFor="pickup-phone">Phone Number</Label>
+                                <Input
+                                    type="tel"
+                                    id="pickup-phone"
+                                    placeholder="Your phone number"
+                                    value={customerPhone}
+                                    onChange={(e) => setCustomerPhone(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="grid w-full items-center gap-1.5">
+                                <Label htmlFor="pickup-address">Pickup Address</Label>
+                                <Textarea
+                                    id="pickup-address"
+                                    placeholder="Your full pickup address"
+                                    value={customerAddress}
+                                    onChange={(e) => setCustomerAddress(e.target.value)}
+                                    required
+                                />
+                            </div>
+                        </div>
+                        <DialogFooter>
+                          <Button type="submit" className="w-full">
+                            Request Pickup
+                          </Button>
+                        </DialogFooter>
                       </form>
-                  </DialogContent>
-                </Dialog>
+                    </DialogContent>
+                  </Dialog>
+                </div>
             </div>
         </section>
 
