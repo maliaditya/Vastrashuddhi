@@ -16,7 +16,7 @@ export function OrderList({ orders, currentUser, onUpdateStatus }: OrderListProp
     );
   }
   return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <div className="grid items-start gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {orders.map((order) => (
         <OrderCard
           key={order.id}
