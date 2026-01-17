@@ -7,7 +7,6 @@ import {
   PackageCheck,
   UserCheck,
   Home,
-  Bot,
   LayoutDashboard,
   Users,
   Settings,
@@ -20,7 +19,7 @@ import {
 export type Icon = typeof LucideIcon;
 
 export const Icons = {
-  logo: Bot,
+  logo: WashingMachine,
   'New Request': PackagePlus,
   'Pickup Assigned': UserCheck,
   'Picked Up': Truck,
