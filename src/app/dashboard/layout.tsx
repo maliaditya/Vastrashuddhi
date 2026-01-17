@@ -61,7 +61,7 @@ export default function DashboardLayout({
         </SidebarContent>
       </Sidebar>
       <SidebarInset>
-        <header className="flex h-16 items-center justify-between gap-4 border-b bg-background px-6">
+        <header className="flex h-16 items-center justify-between gap-4 border-b bg-background px-4 sm:px-6">
           <SidebarTrigger className="md:hidden" />
            <div className="flex-1" />
            <UserNav />

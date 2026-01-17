@@ -55,10 +55,10 @@ export function DashboardClient({ initialOrders, users }: DashboardClientProps) 
 
   return (
     <>
-      <div className="flex items-center justify-between space-y-2">
+      <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
         <h2 className="text-3xl font-bold tracking-tight">{getRoleSpecificTitle(currentUser.role)}</h2>
-        <div className="flex items-center space-x-2">
-           <div className="grid w-full max-w-sm items-center gap-1.5">
+        <div className="w-full md:w-auto">
+           <div className="grid w-full items-center gap-1.5 md:w-[280px]">
             <Label>Viewing as (for demo)</Label>
             <Select
               value={currentUser.id}
@@ -67,7 +67,7 @@ export function DashboardClient({ initialOrders, users }: DashboardClientProps) 
                 if (user) setCurrentUser(user);
               }}
             >
-              <SelectTrigger className="w-[280px]">
+              <SelectTrigger>
                 <SelectValue placeholder="Select a role to view as" />
               </SelectTrigger>
               <SelectContent>
