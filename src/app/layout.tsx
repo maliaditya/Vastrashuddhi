@@ -3,37 +3,38 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 import { cn } from '@/lib/utils';
 import { Inter as FontSans } from "next/font/google"
+import { Icons } from '@/components/icons';
 
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
 })
 
-const title = 'Vastrashuddhi – Professional Laundry & Dry Cleaning';
-const description = 'Professional laundry and dry cleaning service with free pickup and delivery. Book easily on WhatsApp. Clean, hygienic, and reliable service.';
-const ogDescription = 'Professional laundry and dry cleaning with free pickup and delivery. Book easily on WhatsApp.';
-const url = 'https://vastrashuddhi.vercel.app';
-const ogImage = 'https://placehold.co/1200x630/25D366/FFFFFF/png?text=VastraShuddhi';
+const title = 'Vastrashuddhi – Professional Laundry Service';
+const description = 'Professional laundry and dry cleaning service with free pickup and delivery. Book easily on WhatsApp.';
+const ogDescription = 'Professional laundry and dry cleaning service with free pickup and delivery.';
+const url = 'https://vastrashuddhi.vercel.app/';
+const ogImage = 'https://placehold.co/1200x630/66CDAA/FFFFFF/png?text=VastraShuddhi';
 
 
 export const metadata: Metadata = {
   title: title,
   description: description,
   openGraph: {
+    type: 'website',
+    url: url,
     title: title,
     description: ogDescription,
-    url: url,
-    siteName: 'Vastrashuddhi',
     images: [
       {
         url: ogImage,
         width: 1200,
         height: 630,
-        alt: 'Vastrashuddhi Logo',
-      },
+        alt: 'Vastrashuddhi professional laundry service',
+      }
     ],
+    siteName: 'Vastrashuddhi',
     locale: 'en_US',
-    type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
