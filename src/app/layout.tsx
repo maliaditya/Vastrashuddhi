@@ -12,9 +12,8 @@ const fontSans = FontSans({
 const title = 'Vastrashuddhi – Professional Laundry & Dry Cleaning';
 const description = 'Professional laundry and dry cleaning service with free pickup and delivery. Book easily on WhatsApp. Clean, hygienic, and reliable service.';
 const ogDescription = 'Professional laundry and dry cleaning service with free pickup and delivery. Book easily on WhatsApp.';
-// NOTE: You should replace this with your actual production URL
 const url = 'https://vastrashuddhi.vercel.app'; 
-const ogImage = 'https://picsum.photos/seed/laundry/1200/630';
+const ogImage = 'https://images.unsplash.com/photo-1655041448985-f6666cba2d6c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxsYXVuZHJ5JTIwcm9vbXxlbnwwfHx8fDE3Njg2MDkxNDR8MA&ixlib=rb-4.1.0&q=80&w=1200';
 
 
 export const metadata: Metadata = {
