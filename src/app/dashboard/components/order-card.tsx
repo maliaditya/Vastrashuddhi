@@ -52,7 +52,7 @@ export function OrderCard({ order, currentUser, onUpdateStatus }: OrderCardProps
 
   return (
     <>
-      <Card className="flex flex-col h-full shadow-lg hover:shadow-xl transition-shadow duration-300 bg-card">
+      <Card className="flex flex-col shadow-lg hover:shadow-xl transition-shadow duration-300 bg-card">
         <CardHeader>
           <div className="flex justify-between items-start">
             <div>
@@ -65,7 +65,7 @@ export function OrderCard({ order, currentUser, onUpdateStatus }: OrderCardProps
             </Badge>
           </div>
         </CardHeader>
-        <CardContent className="flex-grow space-y-3">
+        <CardContent className="space-y-3">
           <Separator />
           <div className="flex justify-between text-sm">
             <span className="text-muted-foreground">Phone</span>
