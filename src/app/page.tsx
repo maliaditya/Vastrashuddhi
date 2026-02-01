@@ -438,7 +438,7 @@ Our team will contact you shortly for pickup details.
       
       <footer className="py-6 border-t">
         <div className="container text-center text-muted-foreground text-sm">
-            <p>&copy; {new Date().getFullYear()} VastraShuddhi. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} VastraShuddhi. All rights reserved. | <Link href="/privacy-policy" className="text-primary hover:underline">Privacy Policy</Link></p>
         </div>
       </footer>
     </div>
